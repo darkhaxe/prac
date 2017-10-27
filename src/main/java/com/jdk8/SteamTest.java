@@ -4,7 +4,9 @@ package com.jdk8;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
+import javax.jnlp.PersistenceService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class SteamTest {
@@ -35,5 +37,38 @@ class SteamTest {
             this.name = name;
             this.age = age;
         }
+    }
+
+    @Test
+    public void testSB() throws Exception {
+        StringBuilder couponHintSB = new StringBuilder();
+        couponHintSB.append("减100 - 10、");
+        couponHintSB.append("减200 - 20、");
+        couponHintSB.append("减300 - 30、");
+        couponHintSB.substring(0, couponHintSB.lastIndexOf("、"));
+        System.out.println(couponHintSB.toString());
+    }
+
+    @Test
+    public void testRef() {
+//        HashMap<Object, Object> map = new HashMap<>();
+//        ArrayList<Object> list = new ArrayList<>();
+//        map.put("list", list);
+//        list.add(111);
+//        list.add(222);
+//        list.add(333);
+//        System.out.println(map);
+//        System.out.println(map.get("list").equals(list));
+
+        List<Person> personsList = new ArrayList<>();
+        Person p1 = new Person(1, "name" + 1, 10);
+        Person p2 = new Person(2, "name" + 2, 21);
+        personsList.add(p1);
+        personsList.add(p2);
+        List<Person> glbList = new ArrayList<>();
+        glbList.addAll(personsList);
+        Person _p1 = glbList.get(0);
+        _p1.setAge(22); // 引用相同,改变存放了引用的对象的属性
+        System.out.println(p1); //查看原对象的数值,已经被改变
     }
 }
