@@ -8,6 +8,7 @@ import javax.jnlp.PersistenceService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class SteamTest {
     @Test
@@ -70,5 +71,16 @@ class SteamTest {
         Person _p1 = glbList.get(0);
         _p1.setAge(22); // 引用相同,改变存放了引用的对象的属性
         System.out.println(p1); //查看原对象的数值,已经被改变
+        System.out.println("------------------");
+        // 测试 streamAPI 的 引用是否
+        List<Person> sList = personsList.stream().filter(p -> p.getName() != null).collect(Collectors.toList());
+        Person _s1 = sList.get(0);
+        _s1.setAge(99); // 引用相同,改变存放了引用的对象的属性
+        System.out.println(p1);
+
+        System.out.println("----------stream API 是否返回空--------");
+        List<Person> test = personsList.stream().filter(p -> p.getAge() < -1).collect(Collectors.toList());
+        System.out.println(test);
+
     }
 }
