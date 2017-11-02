@@ -5,10 +5,11 @@ import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import javax.jnlp.PersistenceService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class SteamTest {
     @Test
@@ -81,6 +82,92 @@ class SteamTest {
         System.out.println("----------stream API 是否返回空--------");
         List<Person> test = personsList.stream().filter(p -> p.getAge() < -1).collect(Collectors.toList());
         System.out.println(test);
+
+        System.out.println("------------------");
+        p2.setAge(223);
+        System.out.println("personsList=" + personsList + " sList=" + sList);
+
+    }
+
+    @Test
+    public void testMax() throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(
+                "/Users/darkhaze/IdeaProjects/prac/src/main/java/com/jdk8/SteamTest.java"));
+        int longest = br.lines().
+                mapToInt(String::length).
+                max().
+                getAsInt();
+        br.close();
+        System.out.println(longest);
+        System.out.println("------------------------");
+
+        //peek
+        System.out.println(Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .collect(Collectors.toList()));
+    }
+
+    @Test
+    public void testForEach() throws Exception {
+        List<String> list = Stream.of("one", "two", "three", "four").collect(Collectors.toList());
+        list.forEach(System.out::println);
+        list.forEach(e -> System.out.println(e + "--"));
+        System.out.println("--------错误实例--------");
+        Stream<String> stream = list.stream();
+
+        stream.forEach(System.out::println);
+        stream.forEach(e -> System.out.println(e + "--"));
+    }
+
+    @Test
+    public void testMap() {
+//        flatMap
+        Student obj1 = new Student();
+        obj1.setName("mkyong");
+        obj1.addBook("Java 8 in Action");
+        obj1.addBook("Spring Boot in Action");
+        obj1.addBook("Effective Java (2nd Edition)");
+
+        Student obj2 = new Student();
+        obj2.setName("zilap");
+        obj2.addBook("Learning Python, 5th Edition");
+        obj2.addBook("Effective Java (2nd Edition)");
+
+        List<Student> list = new ArrayList<>();
+        list.add(obj1);
+        list.add(obj2);
+
+        List<String> collect =
+                list.stream()
+                        .map(x -> x.getBook())      //Stream<Set<String>>
+                        .flatMap(x -> x.stream())   //Stream<String> :将结构打平
+//                        .distinct() --去重
+                        .collect(Collectors.toList());
+
+        collect.forEach(x -> System.out.println(x));
+        System.out.println("-------------------");
+        list.stream()
+                .map(x -> x.getBook())
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+
+    @Data
+    public class Student {
+
+        private String name;
+        private Set<String> book;
+
+        public void addBook(String book) {
+            if (this.book == null) {
+                this.book = new HashSet<>();
+            }
+            this.book.add(book);
+        }
+        //getters and setters
 
     }
 }
