@@ -197,6 +197,23 @@ class SteamTest {
                 .forEach(System.out::println);
     }
 
+    @Test
+    public void testReduce() {
+        List<Person> personsList = new ArrayList<>();
+        Person p1 = new Person(1, "name" + 1, 10);
+        Person p2 = new Person(2, "name" + 2, 21);
+        Person p3 = new Person(2, "name" + 3, 33);
+        personsList.add(p1);
+        personsList.add(p2);
+        personsList.add(p3);
+        System.out.println(
+                personsList.stream()
+                        .map(Person::getAge)
+                        .reduce(100, Integer::sum)
+        );
+
+    }
+
 
     @Test
     public void testfield() throws Exception {
