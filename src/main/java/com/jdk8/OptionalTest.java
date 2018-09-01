@@ -13,6 +13,16 @@ import java.util.stream.Collectors;
  * @date created at 2018/2/1 下午3:11
  */
 public class OptionalTest {
+
+    @Test
+    public void testOptional2() {
+        //测试map()转换为空值,是否会执行orElse
+        System.out.println(
+                Optional.ofNullable(Arrays.asList("1"))
+                        .map(num -> null)
+                        .orElse("default"));
+    }
+
     @Test
     public void testOptional() {
         Optional.ofNullable(null).ifPresent(x -> System.out.println(x));
@@ -36,8 +46,17 @@ public class OptionalTest {
         Optional.ofNullable(Collections.emptyList())
                 .filter(innerList -> !innerList.isEmpty())
                 .ifPresent(innerList -> System.out.println("present->" + innerList));
+//
+        Person spike = new Person(1, "spike", 26);
 
+        Optional.ofNullable(getNull())
+                .ifPresent(spike::setName);
+        System.out.println(spike);
 
+    }
+
+    private String getNull() {
+        return null;
     }
 
     @Test

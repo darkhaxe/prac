@@ -1,4 +1,4 @@
-package com.designerpattern.composite;
+package com.refactor.composite;
 
 import java.util.List;
 

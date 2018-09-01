@@ -11,6 +11,7 @@ import java.util.Date;
  * @date created at 2018/2/12 下午2:54
  */
 public class DateTest {
+    DateTimeFormatter fa = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Test
     public void date() {
@@ -19,11 +20,12 @@ public class DateTest {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime ldt = LocalDateTime.parse(datetime, dtf);
         System.out.println(ldt);
-        DateTimeFormatter fa = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String datetime2 = ldt.format(fa);
         System.out.println(datetime2);
 
         System.out.println(LocalDateTime.now().format(fa));
+
+        CTT();
 
     }
 
@@ -54,6 +56,8 @@ public class DateTest {
         ZoneId zone = ZoneId.systemDefault();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
         LocalTime localTime = localDateTime.toLocalTime();
+        System.out.println(localDateTime.format(fa));
+
     }
 
 
@@ -84,4 +88,31 @@ public class DateTest {
         Date date = Date.from(instant);
     }
 
+    public void CTT() {
+        ZoneId ctt = ZoneId.of(ZoneId.SHORT_IDS.get("CTT"));
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ctt);
+        System.out.println(localDateTime.format(fa));
+    }
+    ZoneId ctt = ZoneId.of(ZoneId.SHORT_IDS.get("CTT"));
+
+    public Date formatDate(String strDate, String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        Instant instant = LocalDate.parse(strDate, dateTimeFormatter).atStartOfDay().atZone(ctt).toInstant();
+        return Date.from(instant);
+    }
+
+    @Test
+    public void doprint() {
+        System.out.println(
+                formatDate("2018.04.12", "yyyy.MM.dd")
+        );
+    }
+
+    @Test
+    public void getZeroTimeStamp() {
+        System.out.println(
+                LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
+                        .atZone(ctt).toInstant().toEpochMilli()
+        );
+    }
 }

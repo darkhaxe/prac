@@ -1,16 +1,16 @@
 package com.jdk8;
 //https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/
 
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-import javax.jnlp.PersistenceService;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 class SteamTest {
     @Test
@@ -95,13 +95,13 @@ class SteamTest {
         System.out.println(p1); //查看原对象的数值,已经被改变
         System.out.println("------------------");
         // 测试 streamAPI 的 引用是否
-        List<Person> sList = personsList.stream().filter(p -> p.getName() != null).collect(Collectors.toList());
+        List<Person> sList = personsList.stream().filter(p -> p.getName() != null).collect(toList());
         Person _s1 = sList.get(0);
         _s1.setAge(99); // 引用相同,改变存放了引用的对象的属性
         System.out.println(p1);
 
         System.out.println("----------stream API 是否返回空--------");
-        List<Person> test = personsList.stream().filter(p -> p.getAge() < -1).collect(Collectors.toList());
+        List<Person> test = personsList.stream().filter(p -> p.getAge() < -1).collect(toList());
         System.out.println(test);
 
         System.out.println("------------------");
@@ -139,12 +139,12 @@ class SteamTest {
                 .peek(e -> System.out.println("Filtered value: " + e))
                 .map(String::toUpperCase)
                 .peek(e -> System.out.println("Mapped value: " + e))
-                .collect(Collectors.toList()));
+                .collect(toList()));
     }
 
     @Test
     public void testForEach() throws Exception {
-        List<String> list = Stream.of("one", "two", "three", "four").collect(Collectors.toList());
+        List<String> list = Stream.of("one", "two", "three", "four").collect(toList());
         list.forEach(System.out::println);
         list.forEach(e -> System.out.println(e + "--"));
         System.out.println("--------错误实例--------");
@@ -187,14 +187,19 @@ class SteamTest {
                         //Stream<String> :将结构打平
                         .flatMap(x -> x.stream())
 //                        .distinct() --去重
-                        .collect(Collectors.toList());
+                        .collect(toList());
 
         collect.forEach(x -> System.out.println(x));
         System.out.println("-------------------");
         list.stream()
                 .map(x -> x.getBook())
-                .collect(Collectors.toList())
+                .collect(toList())
                 .forEach(System.out::println);
+        System.out.println("---------peek----------");
+        // 测试peek能否修改原对象的属性 20180314
+        System.out.println(list.stream()
+                //Stream<Set<String>>
+                .peek(x -> x.setName("t")).collect(toList()));
     }
 
     @Test
@@ -206,12 +211,12 @@ class SteamTest {
         personsList.add(p1);
         personsList.add(p2);
         personsList.add(p3);
-        System.out.println(
-                personsList.stream()
-                        .map(Person::getAge)
-                        .reduce(100, Integer::sum)
-        );
-
+//        System.out.println(
+//                personsList.stream()
+//                        .map(Person::getAge)
+//                        .reduce(100, Integer::sum)
+//        );
+        System.out.println(personsList.stream().map(Person::getName).collect(Collectors.joining(",")));
     }
 
 
@@ -219,6 +224,24 @@ class SteamTest {
     public void testfield() throws Exception {
         Person p = new Person();
         System.out.println(p.getNo() == 2);
+    }
+
+    /**
+     * list的removeIf
+     */
+    @Test
+    public void removeTest() throws Exception {
+        List<String> personsList = new ArrayList<>();
+        String p1 = "spike";
+        String p2 = "jet";
+        String p3 = "fein";
+        personsList.add(p1);
+        personsList.add(p2);
+        personsList.add(p3);
+        List<String> toWipeOut = Arrays.asList(p2, p3);
+        personsList.removeIf(toWipeOut::contains);
+        System.out.println(personsList);
+
     }
 
     @Data
@@ -241,5 +264,21 @@ class SteamTest {
             }
             this.sports.add(sport);
         }
+    }
+
+    @Test
+    public void testEmptyList() {
+        List<Integer> list = Collections.emptyList();
+        list.add(3);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testListConcat() {
+        List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(4, 5);
+        System.out.println(
+                Stream.concat(list1.stream(), list2.stream()).collect(toList())
+        );
     }
 }

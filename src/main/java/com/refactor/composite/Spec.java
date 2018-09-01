@@ -1,4 +1,4 @@
-package com.designerpattern.composite;
+package com.refactor.composite;
 
 /**
  * @author haze
