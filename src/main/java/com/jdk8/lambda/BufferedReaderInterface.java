@@ -1,4 +1,4 @@
-package com.lambda;
+package com.jdk8.lambda;
 
 import java.io.BufferedReader;
 import java.io.IOException;

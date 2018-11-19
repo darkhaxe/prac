@@ -1,4 +1,4 @@
-package com.localdate;
+package com.jdk8.localdate;
 
 import org.junit.Test;
 

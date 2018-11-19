@@ -244,6 +244,17 @@ class SteamTest {
 
     }
 
+    @Test
+    public void emptyTest() throws Exception {
+        System.out.println(
+                Collections.emptyList().stream()
+                .filter(arg -> arg instanceof Person)
+                .map(Person.class::cast)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("cannot find element"))
+        );
+    }
+
     @Data
     public class Student {
 
