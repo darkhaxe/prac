@@ -1,8 +1,11 @@
 package canvas;
 
+import canvas.basicanime.Circle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.Arrays;
 
 /**
  * @author haze
@@ -43,7 +46,18 @@ public class AlgoFrame extends JFrame {
 
             //2-4 使用Graphics2D绘制
             Graphics2D g2D = (Graphics2D) g;
+            //抗锯齿
+            RenderingHints antiAliasing = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2D.addRenderingHints(antiAliasing);
+//            drawEllipse(g2D);
+            AlgoVisHelper.setStrokeLine(g2D, 1);
+            g2D.setColor(Color.BLUE);
+            Arrays.stream(circles).forEach(c ->
+                    AlgoVisHelper.drawCircle(c.x, c.y, c.r, g2D::fill));
+        }
 
+        //2-1~2-5 绘制一个圆的练习
+        private void drawEllipse(Graphics2D g2D) {
             //设置画笔粗细
             AlgoVisHelper.setStrokeLine(g2D, 5);
             //先画实心圆,再画空心
@@ -76,5 +90,13 @@ public class AlgoFrame extends JFrame {
         return canvasHeight;
     }
 
+
+    //2-7 绘制圆球动画
+    private Circle[] circles;
+
+    public void render(Circle[] circles) {
+        this.circles = circles;
+        super.repaint();
+    }
 
 }
