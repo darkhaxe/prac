@@ -1,4 +1,4 @@
-package canvas;
+package canvas.cp2;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

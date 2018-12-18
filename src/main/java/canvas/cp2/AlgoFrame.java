@@ -1,6 +1,6 @@
-package canvas;
+package canvas.cp2;
 
-import canvas.basicanime.Circle;
+import canvas.cp2.basicanime.Circle;
 
 import javax.swing.*;
 import java.awt.*;
