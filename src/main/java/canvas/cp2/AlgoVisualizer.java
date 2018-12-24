@@ -3,6 +3,8 @@ package canvas.cp2;
 import canvas.cp2.basicanime.Circle;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Arrays;
 public class AlgoVisualizer {
     private Circle[] circles;
     private AlgoFrame frame;
+    private Boolean inAction = true;
 
     public AlgoVisualizer(int sceneHeight,
                           int sceneWidth,
@@ -30,6 +33,8 @@ public class AlgoVisualizer {
         EventQueue.invokeLater(() -> {
             //       2-1~2-5     new AlgoFrame("helloWorld", 500, 500);
             frame = new AlgoFrame("helloWorld", sceneWidth, sceneHeight);
+            //键盘事件
+            frame.addKeyListener(new PauseCommand());
             render(sceneHeight, sceneWidth);
 
         });
@@ -47,6 +52,9 @@ public class AlgoVisualizer {
                 frame.render(circles);
                 pause(20);
                 //更新
+                if (!inAction) {
+                    continue;
+                }
                 Arrays.stream(circles).forEach((Circle c) ->
                         c.move(0, 0, sceneWidth, sceneHeight));
             }
@@ -60,5 +68,25 @@ public class AlgoVisualizer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 空格暂停动画
+     */
+    private class PauseCommand extends KeyAdapter {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyChar() == ' ') {
+                inAction = !inAction;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        //2-7 动画
+        int sceneHeight = 800;
+        int sceneWidth = 800;
+        int N = 10;
+        AlgoVisualizer algoVisualizer = new AlgoVisualizer(sceneHeight, sceneWidth, N);
     }
 }
