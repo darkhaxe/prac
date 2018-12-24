@@ -1,13 +1,16 @@
 package canvas.cp2.basicanime;
 
+import java.awt.*;
+
 /**
  * @author haze
  * @date created at 2018/11/25 3:25 PM
  */
 public class Circle {
-    public int x, y;
-    public int vx, vy;
-    public int r;
+    private int x, y;
+    private int vx, vy;
+    private int r;
+    private boolean isFilled = true;
 
     public Circle(int x, int y, int vx, int vy, int r) {
         this.x = x;
@@ -47,5 +50,31 @@ public class Circle {
         }
     }
 
+    /**
+     * 2-10 判断坐标是否包含在圆中
+     */
+    public boolean include(Point point) {
+        return (x - point.x) * (x - point.x) + (y - point.y) * (y - point.y) <= r * r;
+    }
 
+    public void toggleFilled() {
+        this.isFilled = !this.isFilled;
+    }
+
+    public boolean isFilled() {
+        return this.isFilled;
+    }
+
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getR() {
+        return r;
+    }
 }

@@ -5,6 +5,8 @@ import canvas.cp2.basicanime.Circle;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 /**
@@ -35,6 +37,7 @@ public class AlgoVisualizer {
             frame = new AlgoFrame("helloWorld", sceneWidth, sceneHeight);
             //键盘事件
             frame.addKeyListener(new PauseCommand());
+            frame.addMouseListener(new clickEvent());
             render(sceneHeight, sceneWidth);
 
         });
@@ -78,6 +81,21 @@ public class AlgoVisualizer {
         public void keyReleased(KeyEvent e) {
             if (e.getKeyChar() == ' ') {
                 inAction = !inAction;
+            }
+        }
+    }
+
+    private class clickEvent extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            e.translatePoint(0,
+                    //上边框高度=总高度-canvas高度,取反
+                    -(frame.getBounds().height - frame.getCanvasHeight()));
+            for (Circle circle : circles) {
+                if (circle.include(e.getPoint())) {
+                    circle.toggleFilled();
+                }
             }
         }
     }

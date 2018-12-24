@@ -53,7 +53,18 @@ public class AlgoFrame extends JFrame {
             AlgoVisHelper.setStrokeLine(g2D, 1);
             g2D.setColor(Color.BLUE);
             Arrays.stream(circles).forEach(c ->
-                    AlgoVisHelper.drawCircle(c.x, c.y, c.r, g2D::fill));
+                    AlgoVisHelper.drawCircle(c.getX(), c.getY(), c.getR(),
+                            (Ellipse2D.Float shape) -> {
+                                //实心
+                                if (c.isFilled()) {
+                                    g2D.fill(shape);
+                                } else {
+                                    //空心
+                                    System.out.println("空心");
+                                    g2D.draw(shape);
+                                }
+                            }
+                    ));
         }
 
         //2-1~2-5 绘制一个圆的练习
@@ -63,11 +74,11 @@ public class AlgoFrame extends JFrame {
             //先画实心圆,再画空心
             g2D.setColor(Color.GRAY);
             AlgoVisHelper.drawCircle(125, 125, 250,
-                    (Ellipse2D.Float ellipse) -> g2D.fill(ellipse)
+                    g2D::fill
             );
             g2D.setColor(Color.PINK);
             AlgoVisHelper.drawCircle(125, 125, 250,
-                    (Ellipse2D.Float ellipse) -> g2D.draw(ellipse)
+                    g2D::draw
             );
         }
 
