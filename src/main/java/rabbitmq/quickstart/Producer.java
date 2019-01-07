@@ -1,4 +1,4 @@
-package com.rabbitmq.ratelimit;
+package rabbitmq.quickstart;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -22,13 +22,9 @@ public class Producer {
         Connection conn = factory.newConnection();
         Channel channel = conn.createChannel();
         String body = "hello,rabbit";
-
-        String routingKey = "qos.save";
-        String exchange = "test_qos_exchange";
-
         for (int i = 0; i < 5; i++) {
             System.out.println("---");
-            channel.basicPublish(exchange, routingKey, null, body.getBytes());
+            channel.basicPublish("", "test001", null, body.getBytes());
         }
 
         channel.close();

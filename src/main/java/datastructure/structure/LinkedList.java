@@ -1,4 +1,4 @@
-package com.algorithms.structure;
+package datastructure.structure;
 
 /**
  * 链表

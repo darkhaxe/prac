@@ -1,4 +1,4 @@
-package com.algorithms.structure.tree;
+package datastructure.structure.tree;
 
 /**
  * 二分搜索树

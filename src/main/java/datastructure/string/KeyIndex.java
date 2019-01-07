@@ -1,4 +1,4 @@
-package com.algorithms.string;
+package datastructure.string;
 
 /**
  * @author haze

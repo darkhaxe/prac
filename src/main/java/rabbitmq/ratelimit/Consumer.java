@@ -1,4 +1,4 @@
-package com.rabbitmq.ratelimit;
+package rabbitmq.ratelimit;
 
 import com.rabbitmq.client.*;
 
