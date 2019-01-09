@@ -29,7 +29,7 @@ public class QuickSort<T extends Comparable<T>> {
      * 对arr[l..r]进行排序
      */
     private void quickSort(T[] array, int leftBound, int rightBound) {
-        if (leftBound > rightBound) {
+        if (leftBound >= rightBound) {
             return;
         }
         int dividingIndex = partition(array, leftBound, rightBound);
