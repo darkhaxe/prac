@@ -16,4 +16,8 @@ public class SortColor {
     public static void main(String[] args) {
         int[] array = new int[]{1, 3, 2, 2, 1, 3, 1, 2, 3};
     }
+
+    public void sortColors(int[] nums) {
+
+    }
 }

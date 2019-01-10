@@ -1,6 +1,5 @@
 package datastructure.sort;
 
-import static datastructure.SortUtil.generateRandomArray;
 import static datastructure.SortUtil.swap;
 
 /**
@@ -10,25 +9,12 @@ import static datastructure.SortUtil.swap;
  * @date created at 2019/1/8 9:10 PM
  */
 public class QuickSort<T extends Comparable<T>> {
-    public static void main(String[] args) {
-//        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
-        long start = System.currentTimeMillis();
-        // 百万数据500ms排序完成
-        int max = 1000000;
-        Integer[] arr = generateRandomArray(max - 1);
-        new QuickSort<Integer>().quickSort(arr, 0, max - 1);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(arr[i]);
-        }
-//        new QuickSort<Integer>().quickSort(arr,0, 7);
-        long end = System.currentTimeMillis();
-        System.out.println("耗时:" + (end - start) + "ms");
-    }
+
 
     /**
      * 对arr[l..r]进行排序
      */
-    private void quickSort(T[] array, int leftBound, int rightBound) {
+    public void quickSort(T[] array, int leftBound, int rightBound) {
         if (leftBound >= rightBound) {
             return;
         }
@@ -50,10 +36,14 @@ public class QuickSort<T extends Comparable<T>> {
             /*
             在遍历数组的时候,将数组整理成三部分:<1st,1st,>1st;并记录1st的最后落在的索引.
             [first|small-then-1st...|dividingIndex|large-then-first...|currentIndex|....未整理部分]
+            如何整理?
+                当前遍历位置的元素array[currentIndex]<firstElement(作为分界点的元素),则将当前元素的位置交换到 <1区间的最后一位;并移动分界点元素的索引;
+                当前遍历位置的元素array[currentIndex]>firstElement(作为分界点的元素),则将当前元素的位置不变,后续此部分坐落在>1区间;
+               todo 当前遍历位置的元素array[currentIndex]=firstElement(作为分界点的元素)
             每部分不保证有序,递归到两个元素的排序,递归直到一个元素的时候有序
              */
             if (array[currentIndex].compareTo(firstElement) < 0) {
-                swap(dividingIndex + 1, currentIndex, array);
+                swap(currentIndex, dividingIndex + 1, array);
                 dividingIndex++;
             }
         }

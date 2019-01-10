@@ -31,6 +31,17 @@ public class SortUtil {
         return arr;
     }
 
+    /**
+     * 产生一个有序数组
+     */
+    public static Integer[] generateOrderedArray(int max) {
+        Integer[] arr = new Integer[max];
+        for (int i = 0; i < max; i++) {
+            arr[i] = i;
+        }
+        return arr;
+    }
+
     public static <T> void swap(int firstIndex, int secondIndex, T[] arr) {
         T tmp = arr[firstIndex];
         arr[firstIndex] = arr[secondIndex];
