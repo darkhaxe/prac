@@ -1,5 +1,7 @@
 package datastructure.sort;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.concurrent.TimeUnit;
 
 import static datastructure.SortUtil.generateOrderedArray;
@@ -11,25 +13,36 @@ import static datastructure.SortUtil.generateRandomArray;
  */
 public class Test {
     public static void main(String[] args) {
-        testPrimitiveQuickSort();
+//        testPrimitiveQuickSort();
 
         //近乎有序的数组,导致时间复杂度退化到O(n^2),超过12000导致stackoverflow
 //        testOrderedArr(100000);
 
+        test3Way();
 
     }
 
+    private static void test3Way() {
+        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
+        new QuickSort3Ways<Integer>().quickSort(arr, 0, 7);
+        System.out.println(JSON.toJSONString(arr));
+    }
+
     private static void testPrimitiveQuickSort() {
-        //        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
+        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
         long start = System.currentTimeMillis();
         // 百万数据500ms排序完成
-        int max = 1000000;
-        Integer[] arr = generateRandomArray(max - 1);
-        new QuickSort<Integer>().quickSort(arr, 0, max - 1);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(arr[i]);
-        }
+//        int max = 1000000;
+//        Integer[] arr = generateRandomArray(max - 1);
+//        new QuickSort<Integer>().quickSort(arr, 0, max - 1);
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(arr[i]);
+//        }
 //        new QuickSort<Integer>().quickSort(arr,0, 7);
+
+        new QuickSort<Integer>().quickSort(arr, 0, 7);
+        System.out.println(JSON.toJSONString(arr));
+
         long end = System.currentTimeMillis();
         System.out.println("耗时:" + (end - start) + "ms");
     }
