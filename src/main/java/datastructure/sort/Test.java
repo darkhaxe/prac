@@ -23,9 +23,14 @@ public class Test {
     }
 
     private static void test3Way() {
-        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
-        new QuickSort3Ways<Integer>().quickSort(arr, 0, 7);
-        System.out.println(JSON.toJSONString(arr));
+//        Integer[] arr = {4, 6, 2, 3, 1, 5, 7, 8};
+        int max = 1000000;
+        Integer[] arr = generateRandomArray(max - 1);
+        long start = System.currentTimeMillis();
+        new QuickSort3Ways<Integer>().quickSort(arr, 0, max-1);
+        long end = System.currentTimeMillis();
+        System.out.println("耗时:" + (end - start) + "ms");
+//        System.out.println(JSON.toJSONString(arr));
     }
 
     private static void testPrimitiveQuickSort() {

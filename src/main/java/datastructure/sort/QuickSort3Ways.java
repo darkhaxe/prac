@@ -32,21 +32,21 @@ public class QuickSort3Ways<T extends Comparable<T>> {
                 swap(currentIndex, leftCursor + 1, array);
                 leftCursor++;
                 currentIndex++;
-                logChange(array, leftCursor, rightCursor);
+//                logChange(array, leftCursor, rightCursor);
             } else if (array[currentIndex].compareTo(firstElement) > 0) {
                 swap(currentIndex, rightCursor - 1, array);
                 rightCursor--;
-                logChange(array, leftCursor, rightCursor);
+//                logChange(array, leftCursor, rightCursor);
             } else {
                 currentIndex++;
             }
             //运行至此,说明左右区间找到了需要交换的元素
             //先交换元素,再递增左右游标
-            logChange(array, leftCursor, rightCursor);
+//            logChange(array, leftCursor, rightCursor);
         }
         //遍历结束,需要交换firstElement的位置到右游标的位置
         swap(leftBound, leftCursor, array);
-        logChange(array, leftCursor, rightCursor);
+//        logChange(array, leftCursor, rightCursor);
         quickSort(array, leftBound, leftCursor - 1);
         quickSort(array, rightCursor, rightBound);
     }
