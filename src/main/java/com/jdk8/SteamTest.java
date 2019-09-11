@@ -292,4 +292,5 @@ class SteamTest {
                 Stream.concat(list1.stream(), list2.stream()).collect(toList())
         );
     }
+
 }

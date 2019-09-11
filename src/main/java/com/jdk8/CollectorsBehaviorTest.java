@@ -49,4 +49,6 @@ public class CollectorsBehaviorTest {
             Integer length;
         }
     }
+
+
 }

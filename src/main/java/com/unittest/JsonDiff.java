@@ -1070,7 +1070,7 @@ public class JsonDiff {
             URL url1 = new URL(url);
             InputStream in = url1.openStream();
             OutputStream out = new ByteArrayOutputStream();
-//            IOUtils.copy(in, out);
+//            IOUtils.copyCurrentSolution(in, out);
             String aa = out.toString();
             in.close();
             out.close();
