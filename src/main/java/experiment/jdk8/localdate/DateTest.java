@@ -1,0 +1,118 @@
+package experiment.jdk8.localdate;
+
+import org.junit.Test;
+
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+/**
+ * @author haze
+ * @date created at 2018/2/12 下午2:54
+ */
+public class DateTest {
+    DateTimeFormatter fa = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    @Test
+    public void date() {
+
+        String datetime = "20140212111012";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDateTime ldt = LocalDateTime.parse(datetime, dtf);
+        System.out.println(ldt);
+        String datetime2 = ldt.format(fa);
+        System.out.println(datetime2);
+
+        System.out.println(LocalDateTime.now().format(fa));
+
+        CTT();
+
+    }
+
+    //这两个方法使我们可以方便的实现将旧的日期类转换为新的日期类，具体思路都是通过Instant当中介，
+    // 然后通过Instant来创建LocalDateTime（这个类可以很容易获取LocalDate和LocalTime），新的日期类转旧的也是如此，将新的先转成LocalDateTime，然后获取Instant，接着转成Date，具体实现细节如下：
+
+    // 01. java.util.Date --> java.time.LocalDateTime
+    public void UDateToLocalDateTime() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+    }
+
+    // 02. java.util.Date --> java.time.LocalDate
+    public void UDateToLocalDate() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDate localDate = localDateTime.toLocalDate();
+    }
+
+    // 03. java.util.Date --> java.time.LocalTime
+    public void UDateToLocalTime() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalTime localTime = localDateTime.toLocalTime();
+        System.out.println(localDateTime.format(fa));
+
+    }
+
+
+    // 04. java.time.LocalDateTime --> java.util.Date
+    public void LocalDateTimeToUdate() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        java.util.Date date = Date.from(instant);
+    }
+
+
+    // 05. java.time.LocalDate --> java.util.Date
+    public void LocalDateToUdate() {
+        LocalDate localDate = LocalDate.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        java.util.Date date = Date.from(instant);
+    }
+
+    // 06. java.time.LocalTime --> java.util.Date
+    public void LocalTimeToUdate() {
+        LocalTime localTime = LocalTime.now();
+        LocalDate localDate = LocalDate.now();
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        Date date = Date.from(instant);
+    }
+
+    public void CTT() {
+        ZoneId ctt = ZoneId.of(ZoneId.SHORT_IDS.get("CTT"));
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ctt);
+        System.out.println(localDateTime.format(fa));
+    }
+    ZoneId ctt = ZoneId.of(ZoneId.SHORT_IDS.get("CTT"));
+
+    public Date formatDate(String strDate, String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        Instant instant = LocalDate.parse(strDate, dateTimeFormatter).atStartOfDay().atZone(ctt).toInstant();
+        return Date.from(instant);
+    }
+
+    @Test
+    public void doprint() {
+        System.out.println(
+                formatDate("2018.04.12", "yyyy.MM.dd")
+        );
+    }
+
+    @Test
+    public void getZeroTimeStamp() {
+        System.out.println(
+                LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
+                        .atZone(ctt).toInstant().toEpochMilli()
+        );
+    }
+}

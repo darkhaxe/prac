@@ -1,4 +1,4 @@
-import com.unittest.Sum
+import experiment.unittest.Sum
 import spock.lang.Specification
 
 class SpockFirst extends Specification {
