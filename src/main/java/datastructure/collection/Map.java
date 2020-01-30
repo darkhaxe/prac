@@ -1,4 +1,4 @@
-package datastructure.structure;
+package datastructure.collection;
 
 /**
  * @author haze

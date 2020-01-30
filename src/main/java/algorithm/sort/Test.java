@@ -1,11 +1,11 @@
-package datastructure.sort;
+package algorithm.sort;
 
 import com.alibaba.fastjson.JSON;
 
 import java.util.concurrent.TimeUnit;
 
-import static datastructure.SortUtil.generateOrderedArray;
-import static datastructure.SortUtil.generateRandomArray;
+import static algorithm.SortUtil.generateOrderedArray;
+import static algorithm.SortUtil.generateRandomArray;
 
 /**
  * @author haze

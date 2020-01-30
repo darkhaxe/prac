@@ -1,4 +1,4 @@
-package datastructure;
+package algorithm;
 
 import java.util.Random;
 

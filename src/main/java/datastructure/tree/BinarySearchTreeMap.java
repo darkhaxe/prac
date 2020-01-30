@@ -1,6 +1,6 @@
-package datastructure.structure.tree;
+package datastructure.tree;
 
-import datastructure.structure.Map;
+import datastructure.collection.Map;
 
 /**
  * 二分搜索树,实现映射类

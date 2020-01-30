@@ -1,4 +1,4 @@
-package datastructure.structure.tree;
+package datastructure.tree;
 
 /**
  * G.M.Adelson-Velsky与E.M.Landis->AVL

@@ -1,6 +1,6 @@
-package datastructure.sort;
+package algorithm.sort;
 
-import datastructure.SortUtil;
+import algorithm.SortUtil;
 
 import java.util.Random;
 
