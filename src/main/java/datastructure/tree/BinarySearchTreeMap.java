@@ -37,23 +37,23 @@ public class BinarySearchTreeMap<K extends Comparable<K>, V> implements Map<K, V
         root = add(root, key, val);
     }
 
-    private Node add(Node root, K key, V val) {
+    private Node add(Node node, K key, V val) {
         //一开始,往空节点添加子树
-        if (root == null) {
+        if (node == null) {
             size++;
             return new Node(key, val);
         }
 
-        if (key.compareTo(root.key) < 0) {
-            root.left = add(root.left, key, val);
-        } else if (key.compareTo(root.key) > 0) {
-            root.right = add(root.right, key, val);
+        if (key.compareTo(node.key) < 0) {
+            node.left = add(node.left, key, val);
+        } else if (key.compareTo(node.key) > 0) {
+            node.right = add(node.right, key, val);
         } else {
             //存在该key则覆盖val
-            root.val = val;
+            node.val = val;
         }
         //结束:将变化后的root返回
-        return root;
+        return node;
     }
 
     /**
