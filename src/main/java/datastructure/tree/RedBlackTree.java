@@ -1,4 +1,4 @@
-package datastructure.structure.tree;
+package datastructure.tree;
 
 /**
  * @author haze

@@ -1,4 +1,4 @@
-package datastructure.structure;
+package datastructure.linkedlist;
 
 /**
  * 链表

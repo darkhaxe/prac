@@ -1,6 +1,6 @@
-package datastructure.sort;
+package algorithm.sort;
 
-import static datastructure.SortUtil.swap;
+import static algorithm.SortUtil.swap;
 
 /**
  * 快排

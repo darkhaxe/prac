@@ -1,8 +1,8 @@
-package datastructure.sort;
+package algorithm.sort;
 
 import com.alibaba.fastjson.JSON;
 
-import static datastructure.SortUtil.swap;
+import static algorithm.SortUtil.swap;
 
 /**
  * @author haze
