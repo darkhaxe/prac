@@ -46,7 +46,7 @@ public class MergeList {
             //l1.next接上串联完成的有序新链表
             // Q:为什么不是l2.next接上?
             // A:l1是l1与l2排序得到的有序头结点,l1.next链表进入新的排序比较
-
+            // Q:为什么是return l1?
             l1.next = mergeTwoLists(l1.next, l2);
             return l1;
         } else {

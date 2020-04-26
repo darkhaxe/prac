@@ -17,7 +17,7 @@ public class ListNode {
         StringBuilder sb = new StringBuilder();
         sb.append(val);
         ListNode tmpNext = next;
-        while (tmpNext.next != null) {
+        while (tmpNext != null) {
             sb.append("->").append(tmpNext.val);
             tmpNext = tmpNext.next;
         }
