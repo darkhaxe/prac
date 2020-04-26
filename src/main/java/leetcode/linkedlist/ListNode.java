@@ -12,4 +12,15 @@ public class ListNode {
         val = x;
         next = null;
     }
+
+    public void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(val);
+        ListNode tmpNext = next;
+        while (tmpNext.next != null) {
+            sb.append("->").append(tmpNext.val);
+            tmpNext = tmpNext.next;
+        }
+        System.out.println(sb.toString());
+    }
 }
