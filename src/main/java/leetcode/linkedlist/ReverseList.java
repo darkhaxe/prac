@@ -7,6 +7,7 @@ package leetcode.linkedlist;
  * @date created at 2020/4/12 5:30 下午
  */
 public class ReverseList {
+
     //         旧链表              新链表
     // 1 -> 2 -> 3 -> 4
     // 2 -> 3 -> 4           1
@@ -29,6 +30,37 @@ public class ReverseList {
         return newDummyHead.next;
     }
 
+    //递归函数返回之后,代表什么?
+    //当入参是最后一个node节点,会递归返回 单节点 1->null,也可看作是递归反转 此结果是递归完成了,实现了函数的含义
+    //函数的含义是:
+    // 入参         返回
+    // 3->2->1    1->2->3
+    // 2->1       1->2
+    public ListNode reverseRecursive(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        //4->3->2->1->null
+        //当head=2,reversedList开始返回,返回值为 1->null
+        ListNode reversedList = reverseRecursive(head.next);
+        /*
+        开始处理head节点与后继节点
+        转换前: 2->1->null
+        转换后: 1->2->null (此时reversedList发生了变化,刚好可以带上当前head节点)
+        实际上调整之后的存在两条链表:
+            1->2->null
+            4->3->2->null
+        再返回上层,节点3关系调整:
+        3->2->null => 2->3->null( 1是2的前驱  1->2->3->null)
+         */
+        ListNode next = head.next;
+        next.next = head;
+        head.next = null;
+        return reversedList;
+
+    }
+
     private void addHeadToNewList(ListNode head, ListNode newDummyHead) {
         ListNode newLinkedList = newDummyHead.next;
         head.next = newLinkedList;
@@ -42,42 +74,8 @@ public class ReverseList {
         n1.next = n2;
         n2.next = n3;
         n3.next = n4;
-        ListNode reverseList = new ReverseList().reverseList(n1);
-        reverseList.print();
-        new ReverseList().reverseRecursive(reverseList).print();
-    }
-
-    /**
-     * ⽤递归的⽅法反转链表
-     */
-    public ListNode reverseRecursive(ListNode head) {
-        // 1.递归结束条件
-        if (head == null || head.next == null) {
-            return head;
-        }
-        // 递归反转 ⼦链表
-        ListNode newList = reverseRecursive(head.next);
-
-        //反转当前节点与下一个节点的指向关系
-        reverseNodePointer(head);
-
-        // 把调整之后的链表返回。
-        return newList;
-    }
-
-    /**
-     * before -> after
-     * 转换=>
-     * after  -> before
-     */
-    private void reverseNodePointer(ListNode before) {
-        // 改变 1，2节点的指向。
-        // 通过 head.next获取节点2
-        ListNode after = before.next;
-        // after原来指向的节点是?不会出现问题吗?
-        // 需要举个栗子;
-        after.next = before;
-        // 1 的 next 指向 null.
-        before.next = null;
+        ListNode list = new ReverseList().reverseList(n1);
+        list.print();
+        new ReverseList().reverseRecursive(list).print();
     }
 }
