@@ -43,7 +43,7 @@ public class MinDepth {
         //处理完子节点,对本节点做处理,实现函数关系式
 //                    min(f(root.left),f(root.right))+1 , root.left!=null&&root.right!=null
 //          f(root)= {
-//                    f(root.left)+f(root.right)+1 , root.left==null||root.right==null
+//                    f(root.left)+f(root.right)+1 , root.left==null||root.right==null(左右节点有一个为空)
 
 
         //root的左右节点全是空,或一个是空的情况
