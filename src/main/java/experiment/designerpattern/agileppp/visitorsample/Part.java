@@ -1,10 +1,12 @@
-package com.designerpattern.agileppp.visitorsample;
+package experiment.designerpattern.agileppp.visitorsample;
 
 /**
  * Created by simjunbo on 2018-04-19.
  */
 public interface Part {
-    public String getPartNumber();
-    public String getDescription();
-    public void accept(PartVisitor v);
+    String getPartNumber();
+
+    String getDescription();
+
+    void accept(PartVisitor v);
 }

@@ -1,4 +1,4 @@
-package com.designerpattern.agileppp.visitorsample;
+package experiment.designerpattern.agileppp.visitorsample;
 
 import java.util.HashMap;
 
@@ -7,25 +7,26 @@ import java.util.HashMap;
  */
 public class PartCountVisitor implements PartVisitor {
     private int itsPieceCount = 0;
-    private HashMap itsPieceMap = new HashMap();
+    private HashMap<String, Integer> itsPieceMap = new HashMap<>();
 
     public void init(PiecePart p) {
 
     }
 
+    @Override
     public void visit(PiecePart pp) {
         itsPieceCount++;
         String partNumber = pp.getPartNumber();
         int partNumberCount = 0;
         if (itsPieceMap.containsKey(partNumber)) {
-            Integer carrier = (Integer) itsPieceMap.get(partNumber);
-            partNumberCount = carrier.intValue();
+            partNumberCount = itsPieceMap.get(partNumber);
         }
 
         partNumberCount++;
-        itsPieceMap.put(partNumber, new Integer(partNumberCount));
+        itsPieceMap.put(partNumber, partNumberCount);
     }
 
+    @Override
     public void visit(Assembly a) {
 
     }
@@ -41,8 +42,7 @@ public class PartCountVisitor implements PartVisitor {
     public int getCountForPart(String partNumber) {
         int partNumberCount = 0;
         if (itsPieceMap.containsKey(partNumber)) {
-            Integer carrier = (Integer) itsPieceMap.get(partNumber);
-            partNumberCount = carrier.intValue();
+            partNumberCount = itsPieceMap.get(partNumber);
         }
         return partNumberCount;
     }

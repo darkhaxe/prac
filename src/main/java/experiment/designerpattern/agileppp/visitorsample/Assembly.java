@@ -1,4 +1,4 @@
-package com.designerpattern.agileppp.visitorsample;
+package experiment.designerpattern.agileppp.visitorsample;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,20 +9,26 @@ import java.util.List;
  */
 public class Assembly implements Part {
 
-    private List itsParts = new LinkedList();
+    private List<Part> itsParts = new LinkedList<>();
     private String itsPartNumber;
     private String itsDescription;
 
+    /**
+     *
+     * @param partNumber 部件编码
+     * @param description 描述
+     */
     public Assembly(String partNumber, String description) {
         itsPartNumber = partNumber;
         itsDescription = description;
     }
 
+    @Override
     public void accept(PartVisitor v) {
         v.visit(this);
-        Iterator i = getParts();
+        Iterator<Part> i = getParts();
         while (i.hasNext()) {
-            Part p = (Part) i.next();
+            Part p = i.next();
             p.accept(v);
         }
     }
@@ -31,15 +37,17 @@ public class Assembly implements Part {
         itsParts.add(part);
     }
 
-    public Iterator getParts() {
+    public Iterator<Part> getParts() {
         return itsParts.iterator();
     }
 
 
+    @Override
     public String getPartNumber() {
         return null;
     }
 
+    @Override
     public String getDescription() {
         return null;
     }

@@ -1,4 +1,4 @@
-package com.designerpattern.agileppp.visitorsample;
+package experiment.designerpattern.agileppp.visitorsample;
 
 import junit.framework.TestCase;
 
@@ -16,6 +16,7 @@ public class TestBOMReport extends TestCase {
     private PiecePart p2;
     private Assembly a;
 
+    @Override
     public void setUp() {
         p1 = new PiecePart("997624", "MyPart", 3.20);
         p2 = new PiecePart("7734", "Hell", 666);
@@ -62,14 +63,18 @@ public class TestBOMReport extends TestCase {
         a.add(p1);
         a.add(p2);
         a.accept(new PartVisitor() {
+            @Override
             public void visit(PiecePart p) {
-                if (p == p1)
+                if (p == p1) {
                     p1Found = true;
+                }
             }
 
+            @Override
             public void visit(Assembly assy) {
-                if (assy == a)
+                if (assy == a) {
                     aFound = true;
+                }
             }
         });
         assert (p1Found);
@@ -80,14 +85,16 @@ public class TestBOMReport extends TestCase {
     private Assembly cellphone;
 
     void setUpReportDatabase() {
+        //一部电话
         cellphone = new Assembly("CP-7734", "Cell Phone");
+        //零件
         PiecePart display = new PiecePart("DS-1428", "LCD Display", 14.37);
         PiecePart speaker = new PiecePart("SP-92", "Speaker", 3.50);
         PiecePart microPhone = new PiecePart("MC-28", "Micorophone", 5.30);
         PiecePart cellRadio = new PiecePart("Cr-56", "Cell Radio", 30);
         PiecePart frontCover = new PiecePart("Fc-77", "Front Cover", 1.4);
         PiecePart backCover = new PiecePart("RC-77", "RearCover", 1.2);
-
+        //子部件
         Assembly keypad = new Assembly("KP-62", "Keypad");
         Assembly button = new Assembly("B52", "Button");
         PiecePart buttonCover = new PiecePart("CV-15", "Cover", .5);
@@ -112,6 +119,7 @@ public class TestBOMReport extends TestCase {
 
     public void testExplodedCost() {
         setUpReportDatabase();
+        //计算零部件的总成本
         ExplodedCostVisitor v = new ExplodedCostVisitor();
         cellphone.accept(v);
         assertEquals(81.27, v.coast(), .001);
