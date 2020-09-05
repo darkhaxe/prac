@@ -9,6 +9,7 @@ public class ErnieModem implements Modem {
 
     }
 
+    @Override
     public void hangup() {
 
     }

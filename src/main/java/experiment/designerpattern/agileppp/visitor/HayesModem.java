@@ -9,6 +9,7 @@ public class HayesModem implements Modem {
 
     }
 
+    @Override
     public void hangup() {
 
     }

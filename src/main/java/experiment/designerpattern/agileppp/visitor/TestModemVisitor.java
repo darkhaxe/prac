@@ -15,6 +15,7 @@ public class TestModemVisitor extends TestCase {
     private ZoomModem z;
     private ErnieModem e;
 
+    @Override
     public void setUp() {
         v = new UnixModemConfigurator();
         h = new HayesModem();

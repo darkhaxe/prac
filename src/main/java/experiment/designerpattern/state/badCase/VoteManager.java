@@ -1,4 +1,4 @@
-package experiment.designerpattern.state;
+package experiment.designerpattern.state.badCase;
 
 import java.util.HashMap;
 import java.util.Map;
