@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.designerpattern.agileppp.extensionObject;
+package experiment.designerpattern.agileppp.extensionObject;
 
 /**
  *

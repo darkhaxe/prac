@@ -4,9 +4,9 @@ package experiment.designerpattern.agileppp.visitorsample;
  * Created by simjunbo on 2018-04-19.
  */
 public class PiecePart implements Part {
-    private String itsPartNumber;
-    private String itsDescription;
-    private double itsCost;
+    private String partNumber;
+    private String desc;
+    private double cost;
 
     /**
      *
@@ -15,9 +15,9 @@ public class PiecePart implements Part {
      * @param cost 成本
      */
     public PiecePart(String partNumber, String description, double cost) {
-        itsPartNumber = partNumber;
-        itsDescription = description;
-        itsCost = cost;
+        this.partNumber = partNumber;
+        desc = description;
+        this.cost = cost;
     }
 
     @Override
@@ -27,15 +27,15 @@ public class PiecePart implements Part {
 
     @Override
     public String getPartNumber() {
-        return itsPartNumber;
+        return partNumber;
     }
 
     @Override
     public String getDescription() {
-        return itsDescription;
+        return desc;
     }
 
     public double getCost() {
-        return itsCost;
+        return cost;
     }
 }

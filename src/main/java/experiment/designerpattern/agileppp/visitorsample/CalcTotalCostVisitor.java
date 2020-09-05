@@ -4,10 +4,10 @@ package experiment.designerpattern.agileppp.visitorsample;
  * 汇总成本
  * Created by simjunbo on 2018-04-19.
  */
-public class ExplodedCostVisitor implements PartVisitor {
+public class CalcTotalCostVisitor implements PartVisitor {
     private double cost = 0;
 
-    public double coast() {
+    public double getTotalCost() {
         return cost;
     }
 

@@ -1,4 +1,4 @@
-package com.designerpattern.agileppp.decorator;
+package experiment.designerpattern.agileppp.decorator;
 
 import junit.framework.TestCase;
 

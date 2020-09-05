@@ -1,4 +1,4 @@
-package com.designerpattern.agileppp.visitor;
+package experiment.designerpattern.agileppp.visitor;
 
 import junit.framework.TestCase;
 

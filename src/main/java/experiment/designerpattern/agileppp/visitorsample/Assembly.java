@@ -1,6 +1,5 @@
 package experiment.designerpattern.agileppp.visitorsample;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,37 +7,37 @@ import java.util.List;
  * Created by simjunbo on 2018-04-19.
  */
 public class Assembly implements Part {
+    /**
+     * 零件列表
+     */
+    private List<Part> partList = new LinkedList<>();
 
-    private List<Part> itsParts = new LinkedList<>();
-    private String itsPartNumber;
-    private String itsDescription;
+    private String partNumber;
+
+    private String desc;
 
     /**
-     *
-     * @param partNumber 部件编码
+     * @param partNumber  部件编码
      * @param description 描述
      */
     public Assembly(String partNumber, String description) {
-        itsPartNumber = partNumber;
-        itsDescription = description;
+        this.partNumber = partNumber;
+        desc = description;
     }
 
     @Override
-    public void accept(PartVisitor v) {
-        v.visit(this);
-        Iterator<Part> i = getParts();
-        while (i.hasNext()) {
-            Part p = i.next();
-            p.accept(v);
-        }
+    public void accept(PartVisitor visitor) {
+        visitor.visit(this);
+        //递归子部件,调用PartVisitor.accept
+        partList.forEach((Part part) -> part.accept(visitor));
     }
 
     public void add(Part part) {
-        itsParts.add(part);
+        partList.add(part);
     }
 
-    public Iterator<Part> getParts() {
-        return itsParts.iterator();
+    public List<Part> getParts() {
+        return partList;
     }
 
 

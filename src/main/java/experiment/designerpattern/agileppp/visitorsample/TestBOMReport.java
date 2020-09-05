@@ -2,84 +2,12 @@ package experiment.designerpattern.agileppp.visitorsample;
 
 import junit.framework.TestCase;
 
-import java.util.Iterator;
-
 /**
  * Created by simjunbo on 2018-04-19.
  */
 public class TestBOMReport extends TestCase {
     public TestBOMReport(String name) {
         super(name);
-    }
-
-    private PiecePart p1;
-    private PiecePart p2;
-    private Assembly a;
-
-    @Override
-    public void setUp() {
-        p1 = new PiecePart("997624", "MyPart", 3.20);
-        p2 = new PiecePart("7734", "Hell", 666);
-        a = new Assembly("5879", "MyAssembly");
-    }
-
-    public void testCreatePart() {
-        assertEquals("997624", p1.getPartNumber());
-        assertEquals("7734", "Hell", 666);
-        a = new Assembly("5879", "MyAssembly");
-    }
-
-    public void testCreateAssembly() {
-        assertEquals("5879", a.getPartNumber());
-        assertEquals("MyAssembly", a.getDescription());
-    }
-
-    public void testAssembly() {
-        a.add(p1);
-        a.add(p2);
-
-        Iterator i = a.getParts();
-        PiecePart p = (PiecePart) i.next();
-        assertEquals(p, p1);
-        p = (PiecePart) i.next();
-        assertEquals(p, p2);
-        assert (i.hasNext() == false);
-    }
-
-    public void testAssemblyOfAssemblies() {
-        Assembly subAssembly = new Assembly("1324", "SubAssembly");
-        subAssembly.add(p1);
-        a.add(subAssembly);
-
-        Iterator i = a.getParts();
-        assertEquals(subAssembly, i.next());
-    }
-
-    private boolean p1Found = false;
-    private boolean p2Found = false;
-    private boolean aFound = false;
-
-    public void testVisitorCoverage() {
-        a.add(p1);
-        a.add(p2);
-        a.accept(new PartVisitor() {
-            @Override
-            public void visit(PiecePart p) {
-                if (p == p1) {
-                    p1Found = true;
-                }
-            }
-
-            @Override
-            public void visit(Assembly assy) {
-                if (assy == a) {
-                    aFound = true;
-                }
-            }
-        });
-        assert (p1Found);
-        assert (p2Found);
-        assert (aFound);
     }
 
     private Assembly cellphone;
@@ -102,7 +30,7 @@ public class TestBOMReport extends TestCase {
 
         button.add(buttonCover);
         button.add(buttonContact);
-
+        //keypad需要15个按钮
         for (int i = 0; i < 15; i++) {
             keypad.add(button);
         }
@@ -117,22 +45,103 @@ public class TestBOMReport extends TestCase {
         cellphone.add(keypad);
     }
 
-    public void testExplodedCost() {
+    public void testCalcTotalCost() {
         setUpReportDatabase();
-        //计算零部件的总成本
-        ExplodedCostVisitor v = new ExplodedCostVisitor();
+        //计算电话所有零部件的总成本
+        CalcTotalCostVisitor v = new CalcTotalCostVisitor();
         cellphone.accept(v);
-        assertEquals(81.27, v.coast(), .001);
+        assertEquals(81.27, v.getTotalCost(), .001);
     }
 
     public void testPartCount() {
         setUpReportDatabase();
-        PartCountVisitor v = new PartCountVisitor();
+        PieceCountVisitor v = new PieceCountVisitor();
         cellphone.accept(v);
-        assertEquals(36, v.getPieceCount());
-        assertEquals(8, v.getPartNumberCount());
-        assertEquals("DS-1428", 1, v.getCountForPart("DS-1428"));
-        assertEquals("SP-92", 1, v.getCountForPart("SP-92"));
-        // 생략
+        assertEquals(36, v.pieceTotalCount());
+        assertEquals(8, v.pieceKindCount());
+        assertEquals("DS-1428", 1, v.countOfPiecePart("DS-1428"));
+        assertEquals("SP-92", 1, v.countOfPiecePart("SP-92"));
     }
+
+    // ----------------------------------------------测试不通过,先忽略--------------------------------------------------------------
+    private PiecePart piecePart;
+    private PiecePart piecePart2;
+    private Assembly assembly;
+
+    /**
+     *
+     */
+    @Override
+    public void setUp() {
+        piecePart = new PiecePart("997624", "MyPart", 3.20);
+        piecePart2 = new PiecePart("7734", "Hell", 666);
+        assembly = new Assembly("5879", "MyAssembly");
+    }
+
+    /**
+     *
+     */
+    public void testCreatePart() {
+        assertEquals("997624", piecePart.getPartNumber());
+        assertEquals("7734", "Hell", 666);
+        assembly = new Assembly("5879", "MyAssembly");
+    }
+
+    /**
+     *
+     */
+    public void testCreateAssembly() {
+        assertEquals("5879", assembly.getPartNumber());
+        assertEquals("MyAssembly", assembly.getDescription());
+    }
+
+    public void testAssembly() {
+        assembly.add(piecePart);
+        assembly.add(piecePart2);
+
+        assertEquals(assembly.getParts().get(0), piecePart);
+        assertEquals(assembly.getParts().get(1), piecePart2);
+        assert (assembly.getParts().size() == 2);
+    }
+
+    public void testAssemblyOfAssemblies() {
+        Assembly subAssembly = new Assembly("1324", "SubAssembly");
+        subAssembly.add(piecePart);
+        assembly.add(subAssembly);
+
+        assertEquals(subAssembly, assembly.getParts().get(0));
+    }
+
+
+    /**
+     *
+     */
+    private boolean p1Found = false;
+    private boolean p2Found = false;
+    private boolean aFound = false;
+
+    public void testVisitorCoverage() {
+        assembly.add(piecePart);
+        assembly.add(piecePart2);
+        assembly.accept(new PartVisitor() {
+            @Override
+            public void visit(PiecePart p) {
+                if (p == piecePart) {
+                    p1Found = true;
+                }
+            }
+
+            @Override
+            public void visit(Assembly assy) {
+                if (assy == assembly) {
+                    aFound = true;
+                }
+            }
+        });
+        assert (p1Found);
+        assert (p2Found);
+        assert (aFound);
+    }
+
+
 }
