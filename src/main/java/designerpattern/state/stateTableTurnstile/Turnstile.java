@@ -1,5 +1,7 @@
 package designerpattern.state.stateTableTurnstile;
 
+import designerpattern.state.TurnstileController;
+
 import java.util.Vector;
 
 /**
@@ -25,12 +27,9 @@ public class Turnstile {
     private TurnstileController controller;
     private Vector<Transition> transitions = new Vector<>();
 
-    private interface Action {
-        void execute();
-    }
 
     private static class Transition {
-        public Transition(int currentState, int event, int newState, Action action) {
+        public Transition(int currentState, int event, int newState, Runnable action) {
             this.currentState = currentState;
             this.event = event;
             this.newState = newState;
@@ -40,7 +39,7 @@ public class Turnstile {
         int currentState;
         int event;
         int newState;
-        Action action;
+        Runnable action;
     }
 
     public Turnstile(TurnstileController action) {
@@ -51,44 +50,24 @@ public class Turnstile {
         addTransition(UNLOCKED, PASS, LOCKED, lock());
     }
 
-    private void addTransition(int currentState, int event, int newState, Action action) {
+    private void addTransition(int currentState, int event, int newState, Runnable action) {
         transitions.add(new Transition(currentState, event, newState, action));
     }
 
-    private Action lock() {
-        return new Action() {
-            @Override
-            public void execute() {
-                doLock();
-            }
-        };
+    private Runnable lock() {
+        return this::doLock;
     }
 
-    private Action thankyou() {
-        return new Action() {
-            @Override
-            public void execute() {
-                doThankyou();
-            }
-        };
+    private Runnable thankyou() {
+        return this::doThankyou;
     }
 
-    private Action alarm() {
-        return new Action() {
-            @Override
-            public void execute() {
-                doAlarm();
-            }
-        };
+    private Runnable alarm() {
+        return this::doAlarm;
     }
 
-    private Action unlock() {
-        return new Action() {
-            @Override
-            public void execute() {
-                doUnlock();
-            }
-        };
+    private Runnable unlock() {
+        return this::doUnlock;
     }
 
     private void doUnlock() {
@@ -104,15 +83,15 @@ public class Turnstile {
     }
 
     private void doThankyou() {
-        controller.thankyou();
+        controller.thankYou();
     }
 
     public void event(int event) {
         for (int i = 0; i < transitions.size(); i++) {
-            Transition transition = (Transition) transitions.elementAt(i);
+            Transition transition = transitions.elementAt(i);
             if (state == transition.currentState && event == transition.event) {
                 state = transition.newState;
-                transition.action.execute();
+                transition.action.run();
             }
         }
     }

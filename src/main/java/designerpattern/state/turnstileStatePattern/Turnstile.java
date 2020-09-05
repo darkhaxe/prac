@@ -1,5 +1,7 @@
 package designerpattern.state.turnstileStatePattern;
 
+import designerpattern.state.TurnstileController;
+
 /**
  * @author darkhaze
  */

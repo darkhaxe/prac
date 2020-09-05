@@ -1,5 +1,7 @@
 package designerpattern.state.smcTurnstile;
 
+import designerpattern.state.TurnstileController;
+
 /**
  * @author darkhaze
  */
@@ -21,8 +23,8 @@ public class TurnstileFsm extends Turnstile {
     }
 
     @Override
-    public void thankyou() {
-        controller.thankyou();
+    public void thankYou() {
+        controller.thankYou();
     }
 
     @Override

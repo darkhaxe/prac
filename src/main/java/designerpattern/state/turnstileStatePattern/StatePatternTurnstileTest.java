@@ -1,5 +1,6 @@
 package designerpattern.state.turnstileStatePattern;
 
+import designerpattern.state.TurnstileController;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 

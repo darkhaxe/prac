@@ -1,5 +1,7 @@
 package designerpattern.state.nestedSwitchCaseStatements;
 
+import designerpattern.state.TurnstileController;
+
 public class Turnstile {
     // States
     public static final int LOCKED = 0;
@@ -21,10 +23,16 @@ public class Turnstile {
         switch (state) {
             case LOCKED:
                 switch (event) {
+                    /*
+                      投币
+                     */
                     case COIN:
                         state = UNLOCKED;
                         turnstileController.unlock();
                         break;
+                    /*
+                    通过
+                     */
                     case PASS:
                         turnstileController.alarm();
                         break;
@@ -35,7 +43,7 @@ public class Turnstile {
             case UNLOCKED:
                 switch (event) {
                     case COIN:
-                        turnstileController.thankyou();
+                        turnstileController.thankYou();
                         break;
                     case PASS:
                         state = LOCKED;

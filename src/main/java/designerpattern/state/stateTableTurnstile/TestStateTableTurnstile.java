@@ -1,5 +1,6 @@
 package designerpattern.state.stateTableTurnstile;
 
+import designerpattern.state.TurnstileController;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
@@ -36,7 +37,7 @@ public class TestStateTableTurnstile extends TestCase {
             }
 
             @Override
-            public void thankyou() {
+            public void thankYou() {
                 thankyouCalled = true;
             }
 

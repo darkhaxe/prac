@@ -1,5 +1,6 @@
 package designerpattern.state.nestedSwitchCaseStatements;
 
+import designerpattern.state.TurnstileController;
 import junit.framework.*;
 import junit.textui.TestRunner;
 
@@ -36,7 +37,7 @@ public class TestTurnstile extends TestCase {
             }
 
             @Override
-            public void thankyou() {
+            public void thankYou() {
                 thankyouCalled = true;
             }
 

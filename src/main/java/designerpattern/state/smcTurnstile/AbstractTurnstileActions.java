@@ -10,7 +10,7 @@ public abstract class AbstractTurnstileActions {
     public void unlock() {
     }
 
-    public void thankyou() {
+    public void thankYou() {
     }
 
     public void alarm() {

@@ -133,7 +133,7 @@ public class Turnstile extends AbstractTurnstileActions {
         //
         @Override
         public void coin() {
-            thankyou();
+            thankYou();
 
             // change the state
             itsState = itsUnlockedState;
