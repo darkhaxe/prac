@@ -39,7 +39,7 @@ public class Turnstile {
     }
 
     void thankyou() {
-        turnstileController.thankyou();
+        turnstileController.thankYou();
     }
 
     void alarm() {

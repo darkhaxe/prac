@@ -44,11 +44,11 @@ public class Turnstile extends AbstractTurnstileActions {
 
     // event functions - forward to the current State
 
-    public void pass() throws FSMException {
+    public void pass() throws FsmException {
         itsState.pass();
     }
 
-    public void coin() throws FSMException {
+    public void coin() throws FsmException {
         itsState.coin();
     }
 
@@ -62,12 +62,12 @@ public class Turnstile extends AbstractTurnstileActions {
 
         // default event functions
 
-        public void pass() throws FSMException {
-            throw new FSMException("pass", itsState.stateName());
+        public void pass() throws FsmException {
+            throw new FsmException("pass", itsState.stateName());
         }
 
-        public void coin() throws FSMException {
-            throw new FSMException("coin", itsState.stateName());
+        public void coin() throws FsmException {
+            throw new FsmException("coin", itsState.stateName());
         }
 
     }
@@ -78,6 +78,7 @@ public class Turnstile extends AbstractTurnstileActions {
     //    handles the Locked State and its events
     //
     private class Locked extends State {
+        @Override
         public String stateName() {
             return "Locked";
         }
@@ -85,6 +86,7 @@ public class Turnstile extends AbstractTurnstileActions {
         //
         // responds to coin event
         //
+        @Override
         public void coin() {
             unlock();
 
@@ -95,6 +97,7 @@ public class Turnstile extends AbstractTurnstileActions {
         //
         // responds to pass event
         //
+        @Override
         public void pass() {
             alarm();
 
@@ -109,6 +112,7 @@ public class Turnstile extends AbstractTurnstileActions {
     //    handles the Unlocked State and its events
     //
     private class Unlocked extends State {
+        @Override
         public String stateName() {
             return "Unlocked";
         }
@@ -116,6 +120,7 @@ public class Turnstile extends AbstractTurnstileActions {
         //
         // responds to pass event
         //
+        @Override
         public void pass() {
             lock();
 
@@ -126,6 +131,7 @@ public class Turnstile extends AbstractTurnstileActions {
         //
         // responds to coin event
         //
+        @Override
         public void coin() {
             thankyou();
 

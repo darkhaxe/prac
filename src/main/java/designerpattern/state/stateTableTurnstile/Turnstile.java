@@ -6,23 +6,30 @@ import java.util.Vector;
  * @author darkhaze
  */
 public class Turnstile {
-    // States
+    /**
+     * States
+     */
     public static final int LOCKED = 0;
     public static final int UNLOCKED = 1;
 
-    // Events
+    /**
+     * Events
+     */
     public static final int COIN = 0;
     public static final int PASS = 1;
 
-    /*private*/ int state = LOCKED;
-    private TurnstileController TurnstileController;
+    /**
+     * private
+     */
+    int state = LOCKED;
+    private TurnstileController controller;
     private Vector<Transition> transitions = new Vector<>();
 
     private interface Action {
         void execute();
     }
 
-    private class Transition {
+    private static class Transition {
         public Transition(int currentState, int event, int newState, Action action) {
             this.currentState = currentState;
             this.event = event;
@@ -37,7 +44,7 @@ public class Turnstile {
     }
 
     public Turnstile(TurnstileController action) {
-        TurnstileController = action;
+        controller = action;
         addTransition(LOCKED, COIN, UNLOCKED, unlock());
         addTransition(LOCKED, PASS, LOCKED, alarm());
         addTransition(UNLOCKED, COIN, UNLOCKED, thankyou());
@@ -85,19 +92,19 @@ public class Turnstile {
     }
 
     private void doUnlock() {
-        TurnstileController.unlock();
+        controller.unlock();
     }
 
     private void doLock() {
-        TurnstileController.lock();
+        controller.lock();
     }
 
     private void doAlarm() {
-        TurnstileController.alarm();
+        controller.alarm();
     }
 
     private void doThankyou() {
-        TurnstileController.thankyou();
+        controller.thankyou();
     }
 
     public void event(int event) {

@@ -8,7 +8,7 @@ public interface TurnstileController {
 
     void unlock();
 
-    void thankyou();
+    void thankYou();
 
     void alarm();
 }

@@ -1,27 +1,28 @@
 package designerpattern.state.turnstileStatePattern;
 
-import junit.framework.*;
+import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
 /**
  * @author darkhaze
  */
-public class TestStatePatternTurnstile extends TestCase {
+public class StatePatternTurnstileTest extends TestCase {
     public static void main(String[] args) {
         TestRunner.main(new String[]{"TestStatePatternTurnstile"});
     }
 
-    public TestStatePatternTurnstile(String name) {
+    public StatePatternTurnstileTest(String name) {
         super(name);
     }
 
     private Turnstile t;
     private boolean lockCalled = false;
     private boolean unlockCalled = false;
-    private boolean thankyouCalled = false;
+    private boolean thankYouCalled = false;
     private boolean alarmCalled = false;
 
 
+    @Override
     public void setUp() {
         TurnstileController controllerSpoof = new TurnstileController() {
             @Override
@@ -35,8 +36,8 @@ public class TestStatePatternTurnstile extends TestCase {
             }
 
             @Override
-            public void thankyou() {
-                thankyouCalled = true;
+            public void thankYou() {
+                thankYouCalled = true;
             }
 
             @Override
@@ -63,7 +64,7 @@ public class TestStatePatternTurnstile extends TestCase {
         t.setUnlocked();
         t.coin();
         assert (t.isUnlocked());
-        assert (thankyouCalled);
+        assert (thankYouCalled);
     }
 
     public void testPassInLockedState() {
