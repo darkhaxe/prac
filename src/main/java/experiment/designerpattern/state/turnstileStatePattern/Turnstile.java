@@ -1,14 +1,17 @@
-package experiment.designerpattern.state.TurnstileStatePattern;
+package experiment.designerpattern.state.turnstileStatePattern;
 
+/**
+ * @author darkhaze
+ */
 public class Turnstile {
     private static TurnstileState lockedState = new LockedTurnstileState();
     private static TurnstileState unlockedState = new UnlockedTurnstileState();
 
-    private TurnstileController TurnstileController;
+    private TurnstileController turnstileController;
     private TurnstileState state = lockedState;
 
     public Turnstile(TurnstileController action) {
-        TurnstileController = action;
+        turnstileController = action;
     }
 
     public void coin() {
@@ -36,18 +39,18 @@ public class Turnstile {
     }
 
     void thankyou() {
-        TurnstileController.thankyou();
+        turnstileController.thankyou();
     }
 
     void alarm() {
-        TurnstileController.alarm();
+        turnstileController.alarm();
     }
 
     void lock() {
-        TurnstileController.lock();
+        turnstileController.lock();
     }
 
     void unlock() {
-        TurnstileController.unlock();
+        turnstileController.unlock();
     }
 }

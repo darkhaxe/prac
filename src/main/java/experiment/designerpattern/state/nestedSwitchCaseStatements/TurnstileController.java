@@ -1,11 +1,14 @@
 package experiment.designerpattern.state.nestedSwitchCaseStatements;
 
+/**
+ * @author darkhaze
+ */
 public interface TurnstileController {
-    public void lock();
+   void lock();
 
-    public void unlock();
+   void unlock();
 
-    public void thankyou();
+   void thankyou();
 
-    public void alarm();
+   void alarm();
 }

@@ -14,7 +14,7 @@ package experiment.designerpattern.state.smcTurnstile;//------------------------
 // class Turnstile
 //    This is the Finite State Machine class
 //
-public class Turnstile extends TurnstileActions {
+public class Turnstile extends AbstractTurnstileActions {
     private State itsState;
     private static String itsVersion = "";
 
@@ -44,11 +44,11 @@ public class Turnstile extends TurnstileActions {
 
     // event functions - forward to the current State
 
-    public void pass() throws FSMError {
+    public void pass() throws FSMException {
         itsState.pass();
     }
 
-    public void coin() throws FSMError {
+    public void coin() throws FSMException {
         itsState.coin();
     }
 
@@ -62,12 +62,12 @@ public class Turnstile extends TurnstileActions {
 
         // default event functions
 
-        public void pass() throws FSMError {
-            throw new FSMError("pass", itsState.stateName());
+        public void pass() throws FSMException {
+            throw new FSMException("pass", itsState.stateName());
         }
 
-        public void coin() throws FSMError {
-            throw new FSMError("coin", itsState.stateName());
+        public void coin() throws FSMException {
+            throw new FSMException("coin", itsState.stateName());
         }
 
     }

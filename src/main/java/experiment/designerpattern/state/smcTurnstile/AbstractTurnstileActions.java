@@ -1,6 +1,9 @@
 package experiment.designerpattern.state.smcTurnstile;
 
-public abstract class TurnstileActions {
+/**
+ * @author darkhaze
+ */
+public abstract class AbstractTurnstileActions {
     public void lock() {
     }
 

@@ -3,6 +3,9 @@ package experiment.designerpattern.state.nestedSwitchCaseStatements;
 import junit.framework.*;
 import junit.textui.TestRunner;
 
+/**
+ * @author darkhaze
+ */
 public class TestTurnstile extends TestCase {
     public static void main(String[] args) {
         TestRunner.main(new String[]{"TestTurnstile"});

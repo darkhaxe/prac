@@ -1,4 +1,4 @@
-package experiment.designerpattern.state.TurnstileStatePattern;
+package experiment.designerpattern.state.turnstileStatePattern;
 
 interface TurnstileState {
     void coin(Turnstile t);

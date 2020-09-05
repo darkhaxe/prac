@@ -1,8 +1,11 @@
-package experiment.designerpattern.state.TurnstileStatePattern;
+package experiment.designerpattern.state.turnstileStatePattern;
 
 import junit.framework.*;
 import junit.textui.TestRunner;
 
+/**
+ * @author darkhaze
+ */
 public class TestStatePatternTurnstile extends TestCase {
     public static void main(String[] args) {
         TestRunner.main(new String[]{"TestStatePatternTurnstile"});

@@ -3,6 +3,9 @@ package experiment.designerpattern.state.stateTableTurnstile;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
+/**
+ * @author darkhaze
+ */
 public class TestStateTableTurnstile extends TestCase {
     public static void main(String[] args) {
         TestRunner.main(new String[]{"TestStateTableTurnstile"});

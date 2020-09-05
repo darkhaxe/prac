@@ -11,10 +11,10 @@ public class Turnstile {
 
     /*private*/ int state = LOCKED;
 
-    private TurnstileController TurnstileController;
+    private TurnstileController turnstileController;
 
     public Turnstile(TurnstileController action) {
-        TurnstileController = action;
+        turnstileController = action;
     }
 
     public void event(int event) {
@@ -23,10 +23,10 @@ public class Turnstile {
                 switch (event) {
                     case COIN:
                         state = UNLOCKED;
-                        TurnstileController.unlock();
+                        turnstileController.unlock();
                         break;
                     case PASS:
-                        TurnstileController.alarm();
+                        turnstileController.alarm();
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + event);
@@ -35,11 +35,11 @@ public class Turnstile {
             case UNLOCKED:
                 switch (event) {
                     case COIN:
-                        TurnstileController.thankyou();
+                        turnstileController.thankyou();
                         break;
                     case PASS:
                         state = LOCKED;
-                        TurnstileController.lock();
+                        turnstileController.lock();
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + event);

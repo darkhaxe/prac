@@ -1,4 +1,4 @@
-package experiment.designerpattern.state.smcTurnstile;
+package experiment.designerpattern.state.turnstileStatePattern;
 
 /**
  * @author darkhaze

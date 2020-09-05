@@ -1,9 +1,12 @@
 package experiment.designerpattern.state.smcTurnstile;
 
-public class TurnstileFSM extends Turnstile {
+/**
+ * @author darkhaze
+ */
+public class TurnstileFsm extends Turnstile {
     private TurnstileController controller;
 
-    public TurnstileFSM(TurnstileController controller) {
+    public TurnstileFsm(TurnstileController controller) {
         this.controller = controller;
     }
 

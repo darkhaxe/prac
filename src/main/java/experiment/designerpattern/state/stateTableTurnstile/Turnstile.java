@@ -2,6 +2,9 @@ package experiment.designerpattern.state.stateTableTurnstile;
 
 import java.util.Vector;
 
+/**
+ * @author darkhaze
+ */
 public class Turnstile {
     // States
     public static final int LOCKED = 0;
